@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino/ui/pages/picker_page.dart';
 import 'package:flutter_cupertino/ui/pages/tabbar_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,6 +38,18 @@ class HomePage extends StatelessWidget {
                     return CupertinoDemo();
                   }));
                 }),
+            CupertinoButton(
+                child: Text(
+                  "Go To Picker Page",
+                  style: TextStyle(fontSize: 22.0),
+                ),
+                onPressed: () {
+                  Navigator
+                      .of(context)
+                      .push(new CupertinoPageRoute(builder: (context) {
+                    return PickerPage();
+                  }));
+                })
           ],
         ),
       ),
