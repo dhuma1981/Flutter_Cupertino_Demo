@@ -21,6 +21,7 @@ class PickerPage extends StatefulWidget {
 
 class _PickerPageState extends State<PickerPage> {
   int _selectedIndex = 0;
+  int _selectedHour = 0, _selectedMinute = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +69,80 @@ class _PickerPageState extends State<PickerPage> {
                 Text(
                   colors[_selectedIndex],
                   style: TextStyle(fontSize: 18.0),
-                )
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
               ],
             ),
+            Text(
+              "MutiSelect Cupertino Picker",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                CupertinoButton(
+                    child: Text("Select Time:"),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 200.0,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: CupertinoPicker(
+                                        scrollController:
+                                            new FixedExtentScrollController(
+                                          initialItem: _selectedHour,
+                                        ),
+                                        itemExtent: 32.0,
+                                        onSelectedItemChanged: (int index) {
+                                          setState(() {
+                                            _selectedHour = index;
+                                          });
+                                        },
+                                        children: new List<Widget>.generate(24,
+                                            (int index) {
+                                          return new Center(
+                                            child: new Text('${index+1}'),
+                                          );
+                                        })),
+                                  ),
+                                  Expanded(
+                                    child: CupertinoPicker(
+                                        scrollController:
+                                            new FixedExtentScrollController(
+                                          initialItem: _selectedMinute,
+                                        ),
+                                        itemExtent: 32.0,
+                                        onSelectedItemChanged: (int index) {
+                                          setState(() {
+                                            _selectedMinute = index;
+                                          });
+                                        },
+                                        children: new List<Widget>.generate(60,
+                                            (int index) {
+                                          return new Center(
+                                            child: new Text('${index+1}'),
+                                          );
+                                        })),
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    }),
+                Text(
+                  '${_selectedHour+1}:${_selectedMinute+1}',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ],
+            )
           ],
         ),
       ),
