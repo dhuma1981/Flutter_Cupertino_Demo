@@ -22,6 +22,7 @@ class PickerPage extends StatefulWidget {
 class _PickerPageState extends State<PickerPage> {
   int _selectedIndex = 0;
   int _selectedHour = 0, _selectedMinute = 0;
+  int _changedNumber = 0, _selectedNumber = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,9 @@ class _PickerPageState extends State<PickerPage> {
                           builder: (BuildContext context) {
                             return Container(
                               height: 200.0,
+                              color: Colors.white,
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Expanded(
                                     child: CupertinoPicker(
@@ -101,6 +104,7 @@ class _PickerPageState extends State<PickerPage> {
                                           initialItem: _selectedHour,
                                         ),
                                         itemExtent: 32.0,
+                                        backgroundColor: Colors.white,
                                         onSelectedItemChanged: (int index) {
                                           setState(() {
                                             _selectedHour = index;
@@ -120,6 +124,7 @@ class _PickerPageState extends State<PickerPage> {
                                           initialItem: _selectedMinute,
                                         ),
                                         itemExtent: 32.0,
+                                        backgroundColor: Colors.white,
                                         onSelectedItemChanged: (int index) {
                                           setState(() {
                                             _selectedMinute = index;
@@ -142,7 +147,75 @@ class _PickerPageState extends State<PickerPage> {
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],
-            )
+            ),
+            Text(
+              "Cupertino Picker with Actions",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                CupertinoButton(
+                    child: Text("Select Number :"),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 200.0,
+                              color: Colors.white,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  CupertinoButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  Expanded(
+                                    child: CupertinoPicker(
+                                        scrollController:
+                                            new FixedExtentScrollController(
+                                          initialItem: _selectedNumber,
+                                        ),
+                                        itemExtent: 32.0,
+                                        backgroundColor: Colors.white,
+                                        onSelectedItemChanged: (int index) {
+                                          _changedNumber = index;
+                                        },
+                                        children: new List<Widget>.generate(100,
+                                            (int index) {
+                                          return new Center(
+                                            child: new Text('${index+1}'),
+                                          );
+                                        })),
+                                  ),
+                                  CupertinoButton(
+                                    child: Text("Ok"),
+                                    onPressed: () {
+                                      setState(() {
+                                        _selectedNumber = _changedNumber;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    }),
+                Text(
+                  '${_selectedNumber+1}',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+              ],
+            ),
           ],
         ),
       ),
