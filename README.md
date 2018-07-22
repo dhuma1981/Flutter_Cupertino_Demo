@@ -11,7 +11,7 @@ A new Flutter application to demonstrate the different Cupertino widgets.
 
 | Cupertino Picker | MultiSelect Cupertino Picker |
 | ---------------- | ---------------------------- |
-| <img src="./preview/Picker.png" height="400" alt="Screenshot"/> | <img src="./preview/MultiSelect.png" height="400" alt="Screenshot"/> |
+| <img src="./preview/Picker.png" height="400" alt="Screenshot"/> | <img src="./preview/MultiSelect_Picker.png" height="400" alt="Screenshot"/> |
 
 ## Getting Started
 
